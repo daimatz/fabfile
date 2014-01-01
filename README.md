@@ -3,7 +3,8 @@
 ## task list
 
 ```sh
-fab --list
+cd archlinux
+fab -l
 ```
 
 ## Usage
