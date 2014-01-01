@@ -1,6 +1,6 @@
 from fabric.api import task, sudo
 
-install_dir = '/home/vagrant/local'
+install_dir = '/usr'
 
 @task
 def ghc():
