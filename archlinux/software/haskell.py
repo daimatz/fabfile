@@ -21,7 +21,6 @@ def cabal():
     sudo('pacman -Sy --noconfirm cabal-install')
     sudo('cabal update')
     sudo('cabal install -j4 --prefix=/usr cabal-install')
-    cabal_install_executable(['cabal-install'])
 
 @task
 def dev_tools():
