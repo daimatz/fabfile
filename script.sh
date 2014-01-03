@@ -8,6 +8,7 @@ git checkout v1.4.0
 bundle install
 rake install
 export PATH=$VAGRANT_BIN_PATH:$PATH
+cd ..
 
 sudo apt-get update
 sudo apt-get install -y bsdtar
