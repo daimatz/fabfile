@@ -3,7 +3,7 @@
 
 PRIVATE_KEY_PATH = '/tmp/droneio.pem'
 File.open(PRIVATE_KEY_PATH, "w") { |f|
-  f.puts(ENV['DRONE_IO_KEY'])
+  f.puts(ENV['DRONE_IO_KEY'].gsub('|', "\n"))
 }
 File.chmod(0600, PRIVATE_KEY_PATH)
 
