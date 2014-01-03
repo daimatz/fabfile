@@ -1,9 +1,16 @@
 # -*- mode: ruby -*-
-# vi: set ft=ruby
+# vi: set ft=ruby :
 
 PRIVATE_KEY_PATH = '/tmp/droneio.pem'
+
+private_key = ''
+100.times do |i|
+  line = "KEY_#{sprintf("%02d", i)}"
+  break if ENV[line].nil?
+  private_key += ENV[line] + "\n"
+end
 File.open(PRIVATE_KEY_PATH, "w") { |f|
-  f.puts(ENV['DRONE_IO_KEY'].gsub('|', "\n"))
+  f.puts(private_key)
 }
 File.chmod(0600, PRIVATE_KEY_PATH)
 
