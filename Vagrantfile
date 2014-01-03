@@ -1,19 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-PRIVATE_KEY_PATH = '/tmp/droneio.pem'
-
-private_key = ''
-100.times do |i|
-  line = "KEY_#{sprintf("%02d", i)}"
-  break if ENV[line].nil?
-  private_key += ENV[line] + "\n"
-end
-File.open(PRIVATE_KEY_PATH, "w") { |f|
-  f.puts(private_key)
-}
-File.chmod(0600, PRIVATE_KEY_PATH)
-
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -24,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     aws.secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
     aws.keypair_name = "drone.io"
 
-    aws.instance_type = "t1.micro"
+    aws.instance_type = "c1.medium"
     aws.region = "us-west-2"
 
     aws.ami = "ami-d63e58e6"
@@ -34,6 +21,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     override.ssh.username = "ec2-user"
 
-    override.ssh.private_key_path = PRIVATE_KEY_PATH
+    override.ssh.private_key_path = ENV['PRIVATE_KEY_FILE']
   end
 end
