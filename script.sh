@@ -1,9 +1,16 @@
+# use Ruby 2.0.0 via drone.io menu
+VAGRANT_BIN_PATH=~/.rbenv/versions/2.0.0-p195/bin
+
 # vagrant
 git clone git://github.com/mitchellh/vagrant.git
 cd vagrant
-git checkout refs/tags/v1.4.0
+git checkout v1.4.0
 bundle install
 rake install
+export PATH=$VAGRANT_BIN_PATH:$PATH
+
+sudo apt-get update
+sudo apt-get install -y bsdtar
 
 # vagrant-aws
 vagrant plugin install vagrant-aws
@@ -13,8 +20,7 @@ mkdir -p ~/.ssh
 vagrant ssh-config --host=ec2 > ~/.ssh/config
 
 # fabric
-sudo apt-get update
-sudo apt-get install python-setuptools
+sudo apt-get install -y python-setuptools
 sudo easy_install fabric
 
 # run fabric
