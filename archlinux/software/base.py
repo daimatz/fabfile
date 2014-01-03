@@ -6,6 +6,8 @@ def package():
         ' sqlite zip unzip')
     sudo('yaourt -S --noconfirm nkf')
     sudo('ln -sf /usr/share/git/diff-highlight/diff-highlight /usr/bin')
+    sudo('wget http://betterthangrep.com/ack-standalone -O /usr/bin/ack')
+    sudo('chmod +x /usr/bin/ack')
 
 @task
 def dotfiles():
