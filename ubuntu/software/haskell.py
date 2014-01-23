@@ -10,6 +10,10 @@ cabal_version = 'Cabal-v1.18.1.2'
 cabal_source = '%s.tar.gz' % cabal_version
 cabal_source_url = 'https://github.com/haskell/cabal/archive/%s' % cabal_source
 
+cabal_install_install_dir_prefix = '/usr/cabal'
+cabal_install_symlink_bindir = '/usr/bin'
+cabal_install_install_command = 'cabal install -j4 --symlink-bindir=%s %s %s'
+
 @task
 def dependencies():
     sudo('apt-get install -y ghc libgmp-dev libgmp3-dev zlib1g-dev ncurses-dev'
@@ -44,6 +48,23 @@ def unarchive_cabal_source():
 def install_cabal():
     with cd('%s/cabal-%s/cabal-install' % (cache_dir, cabal_version)):
         sudo('PREFIX=/usr ./bootstrap.sh')
+
+def cabal_install_executable(packages, other_option=''):
+    for package in packages:
+        sudo('mkdir -p %s/%s' % (cabal_install_install_dir_prefix, package))
+        with cd('%s/%s' % (cabal_install_install_dir_prefix, package)):
+            sudo('cabal sandbox init')
+            sudo('cabal update')
+            sudo(cabal_install_install_command %
+                (cabal_install_symlink_bindir, other_option, package))
+
+@task
+def dev_tools():
+    cabal_install_executable(['ghc-mod', 'stylish-haskell', 'doctest'])
+
+@task
+def mighttpd():
+    cabal_install_executable(['mighttpd2'])
 
 @task
 def all():
