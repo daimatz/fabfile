@@ -33,6 +33,6 @@ def dotfiles():
         with cd('/home/%s' % user):
             sudo('git clone --recursive git://github.com/%s/dotfiles'
                 % github_user_id)
-            sudo('bash ~/dotfiles/linker.sh')
-            sudo('echo "source ~/.zsh/init.zsh" >> ~/.zshrc')
+            sudo('bash dotfiles/linker.sh')
+            sudo('echo "source ~/.zsh/init.zsh" >> .zshrc')
     sudo('chsh -s `which zsh` %s' % user)
