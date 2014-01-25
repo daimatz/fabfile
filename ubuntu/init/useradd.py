@@ -17,12 +17,12 @@ def useradd_ssh_config():
             sudo('useradd %s -d /home/%s -m' % (user, user))
     sudo('echo "%s ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/%s' % (user, user))
     sudo('chmod 440 /etc/sudoers.d/%s' % user)
-    sudo('mkdir -p /home/%s/.ssh' % user)
-    sudo('curl https://github.com/%s.keys > /home/%s/.ssh/authorized_keys'
-        % (github_user_id, user))
-    sudo('chmod 700 /home/%s/.ssh' % user)
-    sudo('chmod 600 /home/%s/.ssh/authorized_keys' % user)
-    sudo('chown -R %s:%s /home/%s/.ssh' % (user, user, user))
+    with settings(sudo_user=user):
+        sudo('mkdir -p /home/%s/.ssh' % user)
+        sudo('curl https://github.com/%s.keys > /home/%s/.ssh/authorized_keys'
+            % (github_user_id, user))
+        sudo('chmod 700 /home/%s/.ssh' % user)
+        sudo('chmod 600 /home/%s/.ssh/authorized_keys' % user)
     put('%s/etc/ssh/sshd_config' % template_dir, '/etc/ssh/sshd_config',
         use_sudo=True)
     sudo('service ssh restart')
