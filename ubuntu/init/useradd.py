@@ -1,4 +1,4 @@
-from fabric.api import sudo, task, put, settings
+from fabric.api import sudo, task, put, settings, cd
 
 user = 'dai'
 github_user_id = 'daimatz'
@@ -26,3 +26,13 @@ def useradd_ssh_config():
     put('%s/etc/ssh/sshd_config' % template_dir, '/etc/ssh/sshd_config',
         use_sudo=True)
     sudo('service ssh restart')
+
+@task
+def dotfiles():
+    with settings(sudo_user=user):
+        with cd('/home/%s' % user):
+            sudo('git clone --recursive git://github.com/%s/dotfiles'
+                % github_user_id)
+            sudo('bash ~/dotfiles/linker.sh')
+            sudo('echo "source ~/.zsh/init.zsh" >> ~/.zshrc')
+    sudo('chsh -s `which zsh` %s' % user)
