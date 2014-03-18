@@ -3,7 +3,7 @@ from fabric.api import task, sudo
 @task
 def base():
     sudo('pacman -Sy --noconfirm ruby')
-    sudo('gem i bundler pry rspec')
+    sudo('gem i bundler pry rspec --no-user-install')
 
 @task
 def rails():
