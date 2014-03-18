@@ -5,3 +5,4 @@ import base
 import ruby
 import haskell
 import erlang
+import scala
