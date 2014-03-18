@@ -2,7 +2,9 @@ import sys
 sys.path.append('software')
 
 import base
-import ruby
-import haskell
+
 import erlang
+import haskell
+import nodejs
+import ruby
 import scala
