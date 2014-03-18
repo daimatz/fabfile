@@ -3,7 +3,7 @@ from fabric.api import task, sudo, run
 @task
 def package():
     sudo('pacman -Sy --noconfirm base-devel tmux vim git tig zsh curl wget'
-        ' sqlite zip unzip')
+        ' sqlite zip unzip rsync')
     sudo('yaourt -S --noconfirm nkf')
     sudo('ln -sf /usr/share/git/diff-highlight/diff-highlight /usr/bin')
     sudo('wget http://betterthangrep.com/ack-standalone -O /usr/bin/ack')
