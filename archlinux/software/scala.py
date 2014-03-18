@@ -2,7 +2,7 @@ from fabric.api import task, sudo
 
 @task
 def scala_sbt():
-    sudo('pacman -Sy --noconfirm scala sbt')
+    sudo('pacman -Sy --noconfirm jdk7-openjdk scala sbt')
 
 @task
 def all():
