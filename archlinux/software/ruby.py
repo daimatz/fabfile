@@ -15,6 +15,6 @@ def all():
     '''
 # ruby.all
 base()
-rails()
+# rails()
     '''
     exec(all.__doc__)
