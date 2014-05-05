@@ -25,6 +25,7 @@ def cabal():
 @task
 def dev_tools():
     sudo('pacman -Sy --noconfirm happy alex')
+    sudo('yaourt -S --noconfirm haskell-base-unicode-symbols')
     cabal_install_executable(['ghc-mod', 'stylish-haskell', 'doctest'])
 
 @task
