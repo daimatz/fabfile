@@ -2,8 +2,8 @@ from fabric.api import task, sudo, run
 
 @task
 def package():
-    sudo('pacman -Sy --noconfirm base-devel tmux vim git tig zsh curl wget'
-        ' sqlite zip unzip rsync the_silver_searcher')
+    sudo('pacman -Sy --noconfirm base-devel tmux vim git mercurial tig zsh curl'
+        ' wget sqlite zip unzip rsync the_silver_searcher')
     sudo('yaourt -S --noconfirm nkf')
     sudo('ln -sf /usr/share/git/diff-highlight/diff-highlight /usr/bin')
 
