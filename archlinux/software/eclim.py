@@ -36,9 +36,7 @@ def message():
 def all():
     '''
 # eclim.all
-Xvfb()
-font()
-libgl()
+dependencies()
 eclipse()
 eclim()
 sshd_config()
