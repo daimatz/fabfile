@@ -11,6 +11,7 @@ def package():
 def locale():
     sudo('sed -i "s/#ja_JP.UTF-8/ja_JP.UTF-8/g" /etc/locale.gen')
     sudo('locale-gen')
+    run('echo "export LANG=ja_JP.UTF-8" >> ~/.zshrc')
 
 @task
 def dotfiles():
