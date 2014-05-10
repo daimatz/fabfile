@@ -8,6 +8,12 @@ def package():
     sudo('ln -sf /usr/share/git/diff-highlight/diff-highlight /usr/bin')
 
 @task
+def ntpd():
+    sudo('pacman -Sy --noconfirm openntpd')
+    sudo('systemctl enable openntpd')
+    sudo('systemctl start openntpd')
+
+@task
 def locale():
     sudo('sed -i "s/#ja_JP.UTF-8/ja_JP.UTF-8/g" /etc/locale.gen')
     sudo('locale-gen')
@@ -25,6 +31,7 @@ def all():
     '''
 # base.all
 package()
+ntpd()
 locale()
 dotfiles()
     '''
