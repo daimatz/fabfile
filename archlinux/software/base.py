@@ -3,21 +3,19 @@ from fabric.api import task, sudo, run
 @task
 def package():
     sudo('pacman -Sy --noconfirm base-devel tmux vim git mercurial tig zsh curl'
-        ' wget sqlite zip unzip rsync the_silver_searcher hub')
+        ' wget sqlite zip unzip rsync the_silver_searcher hub ntp')
     sudo('yaourt -S --noconfirm nkf')
     sudo('ln -sf /usr/share/git/diff-highlight/diff-highlight /usr/bin')
-
-@task
-def ntpd():
-    sudo('pacman -Sy --noconfirm openntpd')
-    sudo('systemctl enable openntpd')
-    sudo('systemctl start openntpd')
 
 @task
 def locale():
     sudo('sed -i "s/#ja_JP.UTF-8/ja_JP.UTF-8/g" /etc/locale.gen')
     sudo('locale-gen')
     run('echo "export LANG=ja_JP.UTF-8" >> ~/.zshrc')
+
+@task
+def add_start_ntpd():
+    run('echo "alias ntpd=\'while :; do sudo ntpdate ntp.nict.jp; sleep 1000; done\'" >> ~/.zshrc')
 
 @task
 def dotfiles():
@@ -31,8 +29,8 @@ def all():
     '''
 # base.all
 package()
-ntpd()
 locale()
+add_start_ntpd()
 dotfiles()
     '''
     exec(all.__doc__)
