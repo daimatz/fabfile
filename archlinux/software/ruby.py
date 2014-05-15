@@ -8,7 +8,7 @@ def base():
 @task
 def rails():
     sudo('pacman -Sy --noconfirm nodejs')
-    sudo('gem i rails')
+    sudo('gem i rails --no-user-install')
 
 @task
 def all():
