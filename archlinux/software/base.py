@@ -14,10 +14,6 @@ def locale():
     run('echo "export LANG=ja_JP.UTF-8" >> ~/.zshrc')
 
 @task
-def add_start_ntpd():
-    run('echo "alias ntpd=\'while :; do sudo ntpdate ntp.nict.jp; sleep 1000; done\'" >> ~/.zshrc')
-
-@task
 def dotfiles():
     run('git clone --recursive git://github.com/daimatz/dotfiles')
     run('bash dotfiles/linker.sh')
@@ -25,12 +21,17 @@ def dotfiles():
     sudo('chsh -s `which zsh` vagrant')
 
 @task
+def fake_ntpd():
+    run('echo "while :; do sudo ntpdate ntp.nict.jp; sleep 1000; done" > ~/.ntpd.sh')
+    run('echo \'if [ -z "`psg .ntpd.sh`" ]; then nohup bash ~/.ntpd.sh &> /dev/null &; fi\' >> ~/.zshrc')
+
+@task
 def all():
     '''
 # base.all
 package()
 locale()
-add_start_ntpd()
 dotfiles()
+fake_ntpd()
     '''
     exec(all.__doc__)
