@@ -33,6 +33,10 @@ def mighttpd():
     cabal_install_executable(['mighttpd2'])
 
 @task
+def pandoc():
+    cabal_install_executable(['pandoc'])
+
+@task
 def all():
     '''
 # haskell.all
