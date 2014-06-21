@@ -6,6 +6,7 @@ def package():
         ' wget sqlite zip unzip rsync the_silver_searcher hub ntp')
     sudo('yaourt -S --noconfirm nkf')
     sudo('ln -sf /usr/share/git/diff-highlight/diff-highlight /usr/bin')
+    sudo('ln -sf /usr/share/git/workdir/git-new-workdir /usr/bin')
 
 @task
 def locale():
