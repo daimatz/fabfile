@@ -1,11 +1,11 @@
 from fabric.api import task, sudo, run
 
-go_version = '1.2.1'
+go_version = '1.3'
 go_source = 'go%s.linux-amd64.tar.gz' % go_version
-go_url = 'https://go.googlecode.com/files/%s' % go_source
+go_url = 'http://golang.org/dl/%s' % go_source
 
-goroot = '$HOME/goroot'
-gopath = '$HOME/gopath'
+goroot = '$HOME/.goroot'
+gopath = '$HOME'
 
 @task
 def go():
@@ -28,6 +28,8 @@ def dev_tools():
         'code.google.com/p/go.tools/cmd/vet',
         'code.google.com/p/go.tools/cmd/cover',
         'github.com/nsf/gocode',
+        'github.com/lestrrat/peco/cmd/peco',
+        'github.com/motemen/ghq',
     ]:
         run('GOROOT=%s GOPATH=%s %s/bin/go get %s' % (goroot, gopath, goroot, i))
 
