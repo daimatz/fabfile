@@ -4,7 +4,7 @@ from fabric.api import task, sudo, run
 def package():
     sudo('pacman -Sy --noconfirm base-devel tmux vim git mercurial tig zsh curl'
         ' wget sqlite zip unzip rsync the_silver_searcher hub ntp')
-    sudo('yaourt -S --noconfirm nkf')
+    sudo('yaourt -S --noconfirm nkf global')
     sudo('ln -sf /usr/share/git/diff-highlight/diff-highlight /usr/bin')
     sudo('ln -sf /usr/share/git/workdir/git-new-workdir /usr/bin')
 
