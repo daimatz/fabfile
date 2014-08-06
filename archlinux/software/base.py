@@ -22,6 +22,11 @@ def dotfiles():
     sudo('chsh -s `which zsh` vagrant')
 
 @task
+def preexec_dhcpcd_n():
+    run('echo "function dhcpcd-n() { sudo dhcpcd -n &> /dev/null }" >> ~/.zshrc')
+    run('echo "add-zsh-hook preexec dhcpcd-n" >> ~/.zshrc')
+
+@task
 def fake_ntpd():
     run('echo "while :; do sudo ntpdate ntp.nict.jp; sleep 1000; done" > ~/.ntpd.sh')
     run('echo \'if [ -z "`psg .ntpd.sh`" ]; then nohup bash ~/.ntpd.sh &> /dev/null &; fi\' >> ~/.zshrc')
@@ -33,6 +38,7 @@ def all():
 package()
 locale()
 dotfiles()
+preexec_dhcpcd_n()
 fake_ntpd()
     '''
     exec(all.__doc__)
