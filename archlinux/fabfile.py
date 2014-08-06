@@ -5,8 +5,9 @@ import base
 
 import eclim
 import erlang
-import haskell
 import go
+import haskell
+import intellij
 import nodejs
 import ruby
 import scala
