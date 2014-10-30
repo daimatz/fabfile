@@ -8,11 +8,11 @@ def font():
 
 @task
 def xfce4():
-    sudo('pacman -Sy xfce4')
+    sudo('pacman -Sy --noconfirm xfce4')
 
 @task
 def intellij():
-    sudo('sudo pacman -Sy intellij-idea-community-edition')
+    sudo('pacman -Sy --noconfirm intellij-idea-community-edition')
     sudo('ln -sf /usr/lib/libgif.so.7.0.0 /usr/lib/libgif.so.6')
 
 @task
@@ -24,7 +24,9 @@ def trouble_shoot():
 def android():
     run('wget http://dl.google.com/android/%s' % android_sdk_tgz)
     run('tar xf %s' % android_sdk_tgz)
-    run("echo 'PATH=$PATH:$HOME/android-sdk-linux/tools' >> ~/.zshrc")
+    run("echo 'export ANDROID_HOME=$HOME/android-sdk-linux' >> ~/.zshrc")
+    run("echo 'export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools' >> ~/.zshrc")
+    sudo('pacman -Sy --noconfirm gcc-multilib lib32-zlib lib32-ncurses lib32-readline')
     print('run in X terminal: android update sdk')
 
 @task
