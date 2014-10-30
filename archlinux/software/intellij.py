@@ -1,5 +1,7 @@
 from fabric.api import task, sudo, run
 
+android_sdk_tgz = 'android-sdk_r23.0.2-linux.tgz'
+
 @task
 def font():
     sudo('yaourt -S --noconfirm ttf-vlgothic')
@@ -17,6 +19,13 @@ def intellij():
 def trouble_shoot():
     print('if you cannot use OpenJDK, try:')
     print('http://wiki.jetbrains.net/intellij/Installing_and_running_IntelliJ_IDEA_on_Ubuntu#Configuring_JDK_in_IntelliJ_IDEA')
+
+@task
+def android():
+    run('wget http://dl.google.com/android/%s' % android_sdk_tgz)
+    run('tar xf %s' % android_sdk_tgz)
+    run("echo 'PATH=$PATH:$HOME/android-sdk-linux/tools' >> ~/.zshrc")
+    print('run in X terminal: android update sdk')
 
 @task
 def all():
