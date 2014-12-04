@@ -1,6 +1,6 @@
 from fabric.api import task, sudo, run
 
-go_version = '1.3'
+go_version = '1.3.3'
 go_source = 'go%s.linux-amd64.tar.gz' % go_version
 go_url = 'http://golang.org/dl/%s' % go_source
 
